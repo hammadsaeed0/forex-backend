@@ -579,11 +579,11 @@ export const checkVideo = async (req, res) => {
     const videoStatus = user.video || false;
 
     // Return the video status
-    res.json({ user });
+    res.json({success: true, user });
   } catch (error) {
     // Handle errors
     console.error("Error:", error);
-    res.status(500).json({ user });
+    res.status(500).json({  user });
   }
 };
 
