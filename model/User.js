@@ -18,6 +18,7 @@ const userSchema = new Schema({
   video: { type: Boolean, default: false },
   booking: { type: Boolean, default: false },
   offers: [offerSchema], // Embed offers as sub-documents
+  lectures: [{ type: String }]
 });
 
 // Create models based on the schemas

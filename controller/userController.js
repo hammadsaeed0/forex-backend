@@ -303,7 +303,7 @@ export const approvedOrRejectRequest = async (req, res, next) => {
 // Apply For Lacture
 export const applyForLacture = async (req, res, next) => {
   try {
-    const { email } = req.body;
+    const { email, lectureId } = req.body;
 
     // Check if the email exists in the database
     const existingUser = await User.findOne({ email });
@@ -314,8 +314,20 @@ export const applyForLacture = async (req, res, next) => {
         .json({ success: false, message: "Email not found in the database" });
     }
 
-    // Update the status of the video for the user
-    existingUser.video = true; // Assuming false means the video status is updated
+    // Check if lectureId is provided
+    if (!lectureId) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Lecture ID is required" });
+    }
+
+    // Update the status of the video for the user and add lectureId
+    existingUser.video = true; // Assuming this updates the video status
+    if (!existingUser.lectures) {
+      existingUser.lectures = [];
+    }
+    existingUser.lectures.push(lectureId);
+
     await existingUser.save();
 
     // Respond with the updated user object
@@ -595,3 +607,4 @@ export const checkFacebookLink = async (req, res) => {
     res.status(500).json({ staus: "Internal server error" });
   }
 };
+
