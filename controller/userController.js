@@ -554,7 +554,7 @@ export const checkout = async (req, res) => {
           quantity: item.quantity,
         };
       }),
-      success_url: "http://localhost:3001/dashboard",
+      success_url: "https://user.forexbeginnersacademy.net/dashboard",
       cancel_url: "https://forex-cancel.vercel.app/",
     });
     res.json({ url: session.url });
